@@ -1,6 +1,6 @@
 - 👋 Hi, I’m linghuiba
 - 👀 I’m interested in playing basketball and travalling for food
-- 🌱 I’m currently learning computer and match of mathematical modeling
+- 🌱 I’m currently learning computer technology and match of mathematical modeling
 - 📫 How to reach me? You can add my QQ:1741406166
 
 <!---
