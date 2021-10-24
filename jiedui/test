@@ -1,0 +1,31 @@
+#-*- codeing = utf-8 -*-
+#@Time : 2021/10/24 13:28
+#@Author : 陈浠
+#File : test.py
+#Software : PyCharm
+
+import random
+import fractions
+
+fmRange = 10
+Range = 1
+st = ("+", "-", "x", "÷")
+    # 三运算符算式
+sign1 = st[random.randint(0, 3)]  # 随机得符号
+sign2 = st[random.randint(0, 3)]
+sign3 = st[random.randint(0, 3)]
+fm1 = random.randint(1, fmRange)  # 随机分数
+fz1 = random.randint(1, fmRange * Range)
+fm2 = random.randint(1, fmRange)
+fz2 = random.randint(1, fmRange * Range)
+fm3 = random.randint(1, fmRange)
+fz3 = random.randint(1, fmRange * Range)
+fm4 = random.randint(1, fmRange)
+fz4 = random.randint(1, fmRange * Range)
+
+num1 = fractions.Fraction(fz1, fm1)
+num2 = fractions.Fraction(fz2, fm2)
+num3 = fractions.Fraction(fz3, fm3)
+num4 = fractions.Fraction(fz4, fm4)
+
+print(num4)
