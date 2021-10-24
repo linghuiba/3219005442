@@ -1,0 +1,181 @@
+#-*- codeing = utf-8 -*-
+#@Time : 2021/10/24 16:56
+#@Author : 陈浠
+#File : frac.py
+#Software : PyCharm
+
+import random
+import fractions
+
+def cal(a, sign, b):  # 一运算符计算
+    if (sign == '+'):
+        return a + b
+    elif (sign == '-'):
+        return a - b
+    elif (sign == 'x'):
+        return a * b
+    else:
+        return a / b
+
+def frac_cal(r):
+    fmRange = 10
+    Range = 1
+    st = ("+", "-", "x", "÷")
+    # 三运算符算式
+    sign1 = st[random.randint(0, 3)]  # 随机得符号
+    sign2 = st[random.randint(0, 3)]
+    sign3 = st[random.randint(0, 3)]
+    fm1 = random.randint(1, fmRange)  # 随机分数
+    fz1 = random.randint(1, fmRange * Range)
+    fm2 = random.randint(1, fmRange)
+    fz2 = random.randint(1, fmRange * Range)
+    fm3 = random.randint(1, fmRange)
+    fz3 = random.randint(1, fmRange * Range)
+    fm4 = random.randint(1, fmRange)
+    fz4 = random.randint(1, fmRange * Range)
+
+    num1 = fractions.Fraction(fz1, fm1)
+    num2 = fractions.Fraction(fz2, fm2)
+    num3 = fractions.Fraction(fz3, fm3)
+    num4 = fractions.Fraction(fz4, fm4)
+
+    # print(num1,num2,num3,num4)
+
+    n = random.randint(2, 4)
+
+    if n == 2:
+        if (num1 < num2 and sign1 == '-'):
+            sign1 = '+'
+        question = str(num1) + ' ' + sign1 + ' ' + str(num2)
+        re = cal(num1, sign1, num2)
+        return question, re
+
+    if n == 3:
+        if (sign1 == '+' or sign1 == '-'):
+            if (sign2 == '+' or sign2 == '-'):
+                if (num1 < num2 and sign1 == '-'):
+                    sign1 = '+'
+                t1 = cal(num1, sign1, num2)
+                if (t1 < num3 and sign2 == '-'):
+                    sign2 = '+'
+                re = cal(t1, sign2, num3)
+            else:
+                t1 = cal(num2, sign2, num3)
+                if (num1 < t1 and sign1 == '-'):
+                    sign1 = '+'
+                re = cal(num1, sign1, t1)
+        else:
+            t1 = cal(num1, sign1, num2)
+            if (t1 < num3 and sign2 == '-'):
+                sign2 = '+'
+            re = cal(t1, sign2, num3)
+        question = str(num1) + ' ' + sign1 + ' ' + str(num2) + ' ' + sign2 + ' ' + str(num3)
+        return question, re
+
+    if n == 4:
+        if (sign1 == '÷' or sign1 == 'x'):
+            t1 = cal(num1, sign1, num2)
+            if (sign2 == '+' or sign2 == '-'):
+                if (sign3 == '÷' or sign3 == 'x'):
+                    t2 = cal(num3, sign3, num4)
+                    if (t1 < t2 and sign2 == '-'):  # 避免产生负数
+                        sign2 = '+'
+                    re = cal(t1, sign2, t2)
+                else:
+                    if (t1 < num3 and sign2 == '-'):
+                        sign2 = '+'
+                    t2 = cal(t1, sign2, num3)
+                    if (t2 < num4 and sign3 == '-'):
+                        sign3 = '+'
+                    re = cal(t2, sign3, num4)
+            else:
+                t2 = cal(t1, sign2, num3)
+                if (t2 < num4 and sign3 == '-'):
+                    sign3 = '+'
+                re = cal(t2, sign3, num4)
+        else:
+            if (sign2 == '÷' or sign2 == 'x'):
+                t1 = cal(num2, sign2, num3)
+                if (sign3 == '+' or sign3 == '-'):
+                    if (num1 < t1 and sign1 == '-'):
+                        sign1 = '+'
+                    t2 = cal(num1, sign1, t1)
+                    if (t2 < num4 and sign3 == '-'):
+                        sign3 = '+'
+                    re = cal(t2, sign3, num4)
+                else:
+                    t2 = cal(t1, sign3, num4)
+                    if (num1 < t2 and sign1 == '-'):
+                        sign1 = '+'
+                    re = cal(num1, sign1, t2)
+            else:
+                if (sign3 == '+' or sign3 == '-'):
+                    if (num1 < num2 and sign1 == '-'):
+                        sign1 = '+'
+                    t1 = cal(num1, sign1, num2)
+                    if (t1 < num3 and sign2 == '-'):
+                        sign2 = '+'
+                    t2 = cal(t1, sign2, num3)
+                    if (t2 < num4 and sign3 == '-'):
+                        sign3 = '+'
+                    re = cal(t2, sign3, num4)
+                else:
+                    t1 = cal(num3, sign3, num4)
+                    if (num1 < num2 and sign1 == '-'):
+                        sign1 = '+'
+                    t2 = cal(num1, sign1, num2)
+                    if (t2 < t1 and sign2 == '-'):
+                        sign2 = '+'
+                    re = cal(t2, sign2, t1)
+        question = str(num1) + ' ' + sign1 + ' ' + str(num2) + ' ' + sign2 + ' ' + str(num3) + ' ' + sign3 + ' ' + str(
+            num4)
+        return question, re
+# question,re = Int_cal(10)
+# print(question,re)
+def Mixed_Num(re): # 定义化为带分数的函数
+    if (re % 1 == 0): # 如果结果为整数
+        answer = str(re)
+        # print(answer)
+        return answer
+    else:
+        answer = str(re)
+        mole,deno = answer.split('/')
+        mole = int(mole)
+        deno = int(deno)
+        if mole < deno:
+            # answer = re
+            # print(answer)
+            return answer
+        else:
+            d = mole // deno
+            mole = mole - d*deno
+            answer = '{0}\'{1}/{2}'.format(d,mole,deno)
+            # print(answer)
+            return answer
+        # print(mole,deno)
+# answer = Mixed_Num(re)
+
+def write_in(n):
+    filename1 = 'Exercises.txt'
+    filename2 = 'Answers.txt'
+    i = 1
+    # 清空文件原有内容
+    with open(r'Exercises.txt', 'a+', encoding='utf-8') as test:
+        test.truncate(0)
+    with open(r'Answers.txt', 'a+', encoding='utf-8') as test:
+        test.truncate(0)
+    while i <= n:
+        question, re = frac_cal(10)
+        answer = Mixed_Num(re)
+        with open (filename1,'a') as file_object:
+            file_object.write("四则运算题目{}: ".format(i))
+            file_object.write(question)
+            file_object.write('\n')
+        with open (filename2,'a') as file_object:
+            file_object.write("答案{}: ".format(i))
+            file_object.write(answer)
+            file_object.write('\n')
+        print('题目{0}: {1} = {2}'.format(i, question, answer))
+        i += 1
+
+write_in(10)
